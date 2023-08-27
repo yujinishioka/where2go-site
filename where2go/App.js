@@ -1,20 +1,48 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import { View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 
-export default function App() {
+import Login from './pages/login'
+import Home from './pages/home'
+import styles from './css/global'
+
+const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [login, setLogin] = useState(true);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
+  const IsLogged = () => {
+    return (
+      <Home/>
+    )
+  }
+
+  const NotLogged = () => {
+    return (
+      <Login/>
+    )
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <View style={styles.container}>
+        { isLoggedIn ? 
+          <IsLogged/>
+          :
+          <NotLogged/>
+        }
+        <StatusBar style="auto" />
+      </View>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
