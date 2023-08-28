@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 
 import Login from './pages/login'
+import Register from './pages/register'
 import Home from './pages/home'
 import styles from './css/global'
 
@@ -25,9 +26,15 @@ const App = () => {
     )
   }
 
-  const NotLogged = () => {
+  const NotLogged = (props) => {
     return (
-      <Login/>
+      <View>
+        { props.loginPage ?
+          <Login onLogin={handleLogin} setLogin={setLogin}/>
+          :
+          <Register/>
+        }
+      </View>
     )
   }
 
@@ -37,9 +44,9 @@ const App = () => {
         { isLoggedIn ? 
           <IsLogged/>
           :
-          <NotLogged/>
+          <NotLogged loginPage={ login }/>
         }
-        <StatusBar style="auto" />
+        {/* <StatusBar style="auto" /> */}
       </View>
     </NavigationContainer>
   );
