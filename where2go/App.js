@@ -6,7 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Login from './pages/login'
 import Register from './pages/register'
 import Home from './pages/home'
-import styles from './css/global'
+import styles from './styles/global'
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

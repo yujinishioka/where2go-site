@@ -1,7 +1,7 @@
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 import logo from '../assets/img/logo-full-travel.png'
-import styles from '../css/login'
+import styles from '../styles/login'
 
 const Login = ({ onLogin, setLogin }) => {
     return (
