@@ -32,7 +32,7 @@ const App = () => {
         { props.loginPage ?
           <Login onLogin={handleLogin} setLogin={setLogin}/>
           :
-          <Register/>
+          <Register onLogout={handleLogout} setLogin={setLogin}/>
         }
       </View>
     )
