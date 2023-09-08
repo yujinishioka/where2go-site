@@ -15,7 +15,7 @@ const Login = ({ onLogin, setLogin }) => {
                     <TextInput placeholder={"E-mail"}/>
                     <TextInput placeholder={"Senha"}/>
                 </View>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=> onLogin()}>
                     <Text>
                         Login
                     </Text>

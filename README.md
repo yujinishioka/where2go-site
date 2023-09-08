@@ -36,7 +36,7 @@ npm i
 
 *rodando o projeto*
 ```
-expo start -c
+npm start
 ```
 ---
 </details>

@@ -1,10 +1,16 @@
-import { Text, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
+
+import styles from '../styles/buttons'
 
 const MenuButton = (props) => {
   return(
-    <View>
-      <View>Image</View>
-      <Text>{props.text}</Text>
+    <View style={styles.btnMenu}>
+      <TouchableOpacity>
+        <View>
+          <Text style={styles.btnMenuText}>Image</Text>
+        </View>
+        <Text style={styles.btnMenuText}>{props.text}</Text>
+      </TouchableOpacity>
     </View>
   )
 }

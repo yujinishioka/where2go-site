@@ -1,16 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { StatusBar } from 'expo-status-bar';
 
 import Login from './pages/login'
 import Register from './pages/register'
 import Home from './pages/home'
+import Menu from './pages/menu'
 import styles from './styles/global'
+
+const { Navigator, Screen } = createStackNavigator();
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [login, setLogin] = useState(true);
+  console.log('isLoggedIn: ', isLoggedIn);
+  console.log('login: ', login);
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -22,7 +28,13 @@ const App = () => {
 
   const IsLogged = () => {
     return (
-      <Home/>
+      <NavigationContainer>
+        <Navigator initialRouteName="Home">
+          <Screen name="Home" component={ Home } onLogout={ handleLogout }/>
+          <Screen name="Menu" component={ Menu } onLogout={ handleLogout }/>
+        </Navigator>
+      </NavigationContainer>
+      // <Home onLogout={ handleLogout }/>
     )
   }
 
@@ -30,25 +42,23 @@ const App = () => {
     return (
       <View>
         { props.loginPage ?
-          <Login onLogin={handleLogin} setLogin={setLogin}/>
+          <Login onLogin={ handleLogin } setLogin={ setLogin }/>
           :
-          <Register onLogout={handleLogout} setLogin={setLogin}/>
+          <Register setLogin={ setLogin }/>
         }
       </View>
     )
   }
 
   return (
-    <NavigationContainer>
-      <View style={styles.container}>
-        { isLoggedIn ? 
-          <IsLogged/>
-          :
-          <NotLogged loginPage={ login }/>
-        }
-        {/* <StatusBar style="auto" /> */}
-      </View>
-    </NavigationContainer>
+    <View style={styles.container}>
+      { isLoggedIn ? 
+        <IsLogged/>
+        :
+        <NotLogged loginPage={ login }/>
+      }
+      <StatusBar style="auto" />
+    </View>
   );
 }
 

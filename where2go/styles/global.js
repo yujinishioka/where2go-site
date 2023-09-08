@@ -7,6 +7,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    drawerItem:{
+        backgroundColor: 'red',
+        borderRadius: 10,
+        padding: 10,
+        marginVertical: 5,
+    }
 });
 
 export default styles;

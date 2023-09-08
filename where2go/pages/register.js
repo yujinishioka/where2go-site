@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
-const Register = ({ onLogout, setLogin }) => {
+const Register = ({ setLogin }) => {
     const [username, setUsername] = useState();
     const [name, setName] = useState();
     const [email, setEmail] = useState();
@@ -19,7 +19,9 @@ const Register = ({ onLogout, setLogin }) => {
         <View style={{ flex:1 }}>
             <Text>Registro</Text>
             <View>
-                <View>Image</View>
+                <View>
+                    <Text>Image</Text>
+                </View>
                 <View>
                     <TextInput placeholder={"Username"} value={username} onChangeText={setUsername}/>
                     <TextInput placeholder={"Nome"} value={name} onChangeText={setName}/>
