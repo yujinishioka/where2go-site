@@ -1,18 +1,16 @@
-import { Text, TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 
-import MenuButton from '../components/menuButton';
+import ButtonMenu from '../components/buttonMenu';
+
+import styles from '../styles/home'
+import NavBar from '../components/navBar';
 
 const Home = ({ onLogout }) => {
     console.log('Home')
     return (
         <View>
-            <MenuButton text="Home"/>
-            <Text>HOME</Text>
-            <TouchableOpacity onPress={()=> onLogout()}>
-                <Text>
-                    Sair
-                </Text>
-            </TouchableOpacity>
+            <ButtonMenu text="Home"/>
+            <NavBar items={['Viagens', 'Eventos']}/>
         </View>
     )
 }

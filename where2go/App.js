@@ -8,15 +8,14 @@ import Login from './pages/login'
 import Register from './pages/register'
 import Home from './pages/home'
 import Menu from './pages/menu'
-import styles from './styles/global'
+import stylesGlobal from './styles/global'
 
 const { Navigator, Screen } = createStackNavigator();
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [login, setLogin] = useState(true);
-  console.log('isLoggedIn: ', isLoggedIn);
-  console.log('login: ', login);
+  console.log(`\nisLoggedIn: ${isLoggedIn}\nlogin: ${login}`);
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -28,13 +27,13 @@ const App = () => {
 
   const IsLogged = () => {
     return (
-      <NavigationContainer>
-        <Navigator initialRouteName="Home">
-          <Screen name="Home" component={ Home } onLogout={ handleLogout }/>
-          <Screen name="Menu" component={ Menu } onLogout={ handleLogout }/>
-        </Navigator>
-      </NavigationContainer>
-      // <Home onLogout={ handleLogout }/>
+      // <NavigationContainer>
+      //   <Navigator initialRouteName="Home">
+      //     <Screen name="Home" component={ Home } onLogout={ handleLogout }/>
+      //     <Screen name="Menu" component={ Menu } onLogout={ handleLogout }/>
+      //   </Navigator>
+      // </NavigationContainer>
+      <Home onLogout={ handleLogout }/>
     )
   }
 
@@ -51,7 +50,7 @@ const App = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={stylesGlobal.container}>
       { isLoggedIn ? 
         <IsLogged/>
         :

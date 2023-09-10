@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
+import logo from '../assets/img/logo.png';
+import colors from '../styles/colors';
+import stylesGlobal from '../styles/global';
+import styles from '../styles/register';
+import ButtonPrimary from '../components/buttonPrimary';
+
 const Register = ({ setLogin }) => {
     const [username, setUsername] = useState();
     const [name, setName] = useState();
@@ -16,28 +22,66 @@ const Register = ({ setLogin }) => {
     }
 
     return (
-        <View style={{ flex:1 }}>
-            <Text>Registro</Text>
-            <View>
+        <View>
+            <Text style={ styles.title }>Registro</Text>
+            <View style={ stylesGlobal.form }>
                 <View>
-                    <Text>Image</Text>
+                    <Image style={{ width: 220, height: 80}} source={ logo }/>
                 </View>
-                <View>
-                    <TextInput placeholder={"Username"} value={username} onChangeText={setUsername}/>
-                    <TextInput placeholder={"Nome"} value={name} onChangeText={setName}/>
-                    <TextInput placeholder={"E-mail"} value={email} onChangeText={setEmail}/>
-                    <TextInput placeholder={"CPF"} value={cpf} onChangeText={setCpf}/>
-                    <TextInput placeholder={"Telefone"} value={cellphone} onChangeText={setCellphone}/>
-                    <TextInput placeholder={"Senha"} value={password} onChangeText={setPassword}/>
-                    <TextInput placeholder={"Confirmar senha"} value={confirmPassword} onChangeText={setConfirmPassword}/>
+                <View style={{marginBottom: 10}}>
+                    <TextInput 
+                        placeholder={"Username"} 
+                        value={username} 
+                        onChangeText={setUsername} 
+                        placeholderTextColor={colors.lightGray} 
+                        style={stylesGlobal.textInput}
+                    />
+                    <TextInput 
+                        placeholder={"Nome"} 
+                        value={name} onChangeText={setName} 
+                        placeholderTextColor={colors.lightGray} 
+                        style={stylesGlobal.textInput}
+                    />
+                    <TextInput 
+                        placeholder={"E-mail"} 
+                        value={email} onChangeText={setEmail} 
+                        placeholderTextColor={colors.lightGray} 
+                        style={stylesGlobal.textInput}
+                    />
+                    <TextInput 
+                        placeholder={"CPF"} 
+                        value={cpf} 
+                        onChangeText={setCpf} 
+                        placeholderTextColor={colors.lightGray} 
+                        style={stylesGlobal.textInput}
+                    />
+                    <TextInput 
+                        placeholder={"Telefone"} 
+                        value={cellphone} 
+                        onChangeText={setCellphone} 
+                        placeholderTextColor={colors.lightGray} 
+                        style={stylesGlobal.textInput}
+                    />
+                    <TextInput 
+                        placeholder={"Senha"} 
+                        value={password} 
+                        onChangeText={setPassword} 
+                        placeholderTextColor={colors.lightGray} 
+                        style={stylesGlobal.textInput}
+                    />
+                    <TextInput 
+                        placeholder={"Confirmar senha"} 
+                        value={confirmPassword} 
+                        onChangeText={setConfirmPassword} 
+                        placeholderTextColor={colors.lightGray} 
+                        style={stylesGlobal.textInput}
+                    />
                 </View>
-                <View>
-                    <TouchableOpacity onPress={() => registrar()}>
-                        <Text>Registrar</Text>
-                    </TouchableOpacity>
-                    <Text>Já possui cadastro?</Text>
+                <ButtonPrimary text="Registrar" onPress={registrar}/>
+                <View style={styles.box}>
+                    <Text style={stylesGlobal.text}>Já possui cadastro?</Text>
                     <TouchableOpacity onPress={()=> setLogin(true)}>
-                        <Text>
+                        <Text style={stylesGlobal.textBold}>
                             Faça o Login
                         </Text>
                     </TouchableOpacity>
