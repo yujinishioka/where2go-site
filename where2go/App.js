@@ -33,7 +33,7 @@ const App = () => {
       //     <Screen name="Menu" component={ Menu } onLogout={ handleLogout }/>
       //   </Navigator>
       // </NavigationContainer>
-      <Home onLogout={ handleLogout }/>
+      <Menu onLogout={ handleLogout }/>
     )
   }
 

@@ -4,10 +4,10 @@ const Home = ({ onLogout }) => {
     console.log('MENU')
     return (
         <View>
-            <Text>MENU</Text>
+            <Text style={{color: 'white'}}>MENU</Text>
             <TouchableOpacity onPress={()=> onLogout()}>
-                <Text>
-                    Perfil
+                <Text style={{color: 'white'}}>
+                    Sair
                 </Text>
             </TouchableOpacity>
         </View>
