@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from 'expo-status-bar';
 
 import Login from './pages/login'
@@ -9,8 +9,9 @@ import Register from './pages/register'
 import Home from './pages/home'
 import Menu from './pages/menu'
 import stylesGlobal from './styles/global'
+import StackNavigator from './StackNavigator';
 
-const { Navigator, Screen } = createStackNavigator();
+const { Navigator, Group, Screen } = createNativeStackNavigator ();
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -28,11 +29,16 @@ const App = () => {
   const IsLogged = () => {
     return (
       // <NavigationContainer>
-      //   <Navigator initialRouteName="Home">
+      //   <StackNavigator />
+      // </NavigationContainer>
+      //
+      // <NavigationContainer>
+      //   <Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
       //     <Screen name="Home" component={ Home } onLogout={ handleLogout }/>
       //     <Screen name="Menu" component={ Menu } onLogout={ handleLogout }/>
       //   </Navigator>
       // </NavigationContainer>
+      //
       <Home onLogout={ handleLogout }/>
     )
   }
