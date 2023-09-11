@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity, View } from 'react-native';
 
-const Home = ({ onLogout }) => {
+const Menu = ({ onLogout }) => {
     console.log('MENU')
     return (
         <View>
@@ -14,4 +14,4 @@ const Home = ({ onLogout }) => {
     )
 }
 
-export default Home;
+export default Menu;

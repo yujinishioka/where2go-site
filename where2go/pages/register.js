@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import api from '../api'
 import logo from '../assets/img/logo.png';
 import colors from '../styles/colors';
 import stylesGlobal from '../styles/global';
@@ -14,11 +16,20 @@ const Register = ({ setLogin }) => {
     const [cpf, setCpf] = useState();
     const [cellphone, setCellphone] = useState();
     const [password, setPassword] = useState();
-    const [confirmPassword, setConfirmPassword] = useState();
 
-    const registrar = () => {
-        const cadastro = {username, name, email, cpf, cellphone, password, confirmPassword};
-        console.log('Cadastro', cadastro);
+    const handleRegister = async () => {
+        AsyncStorage.getItem("users")
+        .then((info) => {
+          let lista = [];
+          const obj = { username, name, email, cpf, cellphone, password };
+          if(info) {
+            lista = JSON.parse(info);
+          };
+          lista.push(obj);
+          AsyncStorage.setItem("users", JSON.stringify(lista));
+        }).catch((err) => {
+          alert("Erro: " + err)
+        })
     }
 
     return (
@@ -69,15 +80,8 @@ const Register = ({ setLogin }) => {
                         placeholderTextColor={colors.lightGray} 
                         style={stylesGlobal.textInput}
                     />
-                    <TextInput 
-                        placeholder={"Confirmar senha"} 
-                        value={confirmPassword} 
-                        onChangeText={setConfirmPassword} 
-                        placeholderTextColor={colors.lightGray} 
-                        style={stylesGlobal.textInput}
-                    />
                 </View>
-                <ButtonPrimary text="Registrar" onPress={registrar}/>
+                <ButtonPrimary text="Registrar" onPress={handleRegister}/>
                 <View style={styles.box}>
                     <Text style={stylesGlobal.text}>Já possui cadastro?</Text>
                     <TouchableOpacity onPress={()=> setLogin(true)}>
