@@ -1,22 +1,20 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from 'expo-status-bar';
 
-import Login from './pages/login'
-import Register from './pages/register'
-import Home from './pages/home'
-import Menu from './pages/menu'
-import stylesGlobal from './styles/global'
-import StackNavigator from './StackNavigator';
+import Login from './pages/login';
+import Register from './pages/register';
+import Home from './pages/home';
+import Menu from './pages/menu';
+import stylesGlobal from './styles/global';
 
-const { Navigator, Group, Screen } = createNativeStackNavigator ();
+const { Navigator, Screen } = createNativeStackNavigator();
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [login, setLogin] = useState(true);
-  console.log(`\nisLoggedIn: ${isLoggedIn}\nlogin: ${login}`);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  console.log(`\nApp:\nisLoggedIn: ${isLoggedIn}`);
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -26,43 +24,33 @@ const App = () => {
     setIsLoggedIn(false);
   };
 
-  const IsLogged = () => {
-    return (
-      // <NavigationContainer>
-      //   <StackNavigator />
-      // </NavigationContainer>
-      //
-      // <NavigationContainer>
-      //   <Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
-      //     <Screen name="Home" component={ Home } onLogout={ handleLogout }/>
-      //     <Screen name="Menu" component={ Menu } onLogout={ handleLogout }/>
-      //   </Navigator>
-      // </NavigationContainer>
-      //
-      <Home onLogout={ handleLogout }/>
-    )
-  }
-
-  const NotLogged = (props) => {
-    return (
-      <View>
-        { props.loginPage ?
-          <Login onLogin={ handleLogin } setLogin={ setLogin }/>
-          :
-          <Register setLogin={ setLogin }/>
-        }
-      </View>
-    )
-  }
-
   return (
     <View style={stylesGlobal.container}>
-      { isLoggedIn ? 
-        <IsLogged/>
-        :
-        <NotLogged loginPage={ login }/>
-      }
-      <StatusBar style="auto" />
+      <NavigationContainer>
+        <Navigator initialRouteName={ isLoggedIn ? "Home" : "Login" } screenOptions={{ headerShown: false }}>
+          <Screen name="Home">
+            {(props) => (
+              <Home {...props} onLogout={handleLogout} />
+            )}
+          </Screen>
+          <Screen name="Menu">
+            {(props) => (
+              <Menu {...props} onLogout={handleLogout} />
+            )}
+          </Screen>
+          <Screen name="Login">
+            {(props) => (
+              <Login {...props} onLogin={handleLogin} navigation={props.navigation} />
+            )}
+          </Screen>
+          <Screen name="Register">
+            {(props) => (
+              <Register {...props} navigation={props.navigation} />
+            )}
+          </Screen>
+        </Navigator>
+        {/* <StatusBar style="auto" /> */}
+      </NavigationContainer>
     </View>
   );
 }

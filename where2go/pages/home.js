@@ -12,7 +12,7 @@ const Home = ({ onLogout }) => {
             <ButtonMenu text="Home"/>
             <NavBar items={['Viagens', 'Eventos']}/>
             <View>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={ onLogout }>
                     <Text styles={{color: 'white'}}>
                         Sair
                     </Text>

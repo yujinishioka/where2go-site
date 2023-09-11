@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import ButtonPrimary from '../components/buttonPrimary';
 
@@ -8,9 +9,15 @@ import colors from '../styles/colors';
 import stylesGlobal from '../styles/global';
 import styles from '../styles/login';
 
-const Login = ({ onLogin, setLogin }) => {
+const Login = ({ onLogin }) => {
+    const navigation = useNavigation();
+    
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+
+    const toRegister = () => {
+        navigation.navigate('Register');
+    };
 
     return (
         <View>
@@ -39,7 +46,7 @@ const Login = ({ onLogin, setLogin }) => {
                     <ButtonPrimary text="Login" onPress={ onLogin }/>
                     <View style={styles.box}>
                         <Text style={stylesGlobal.text}>Ainda não tem uma conta?</Text>
-                        <TouchableOpacity onPress={()=> setLogin(false)}>
+                        <TouchableOpacity onPress={ toRegister }>
                             <Text style={stylesGlobal.textBold}>
                                 Cadastre-se aqui!
                             </Text>
