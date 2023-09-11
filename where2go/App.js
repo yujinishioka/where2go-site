@@ -13,9 +13,9 @@ import stylesGlobal from './styles/global'
 const { Navigator, Screen } = createStackNavigator();
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [login, setLogin] = useState(true);
-  console.log(`\nisLoggedIn: ${isLoggedIn}\nlogin: ${login}`);
+  console.log(`isLoggedIn: ${isLoggedIn} | login: ${login}`);
 
   const handleLogin = () => {
     setIsLoggedIn(true);
