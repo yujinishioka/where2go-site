@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import api from '../api'
 import ButtonPrimary from '../components/buttonPrimary';
 import logo from '../assets/img/logo.png';
 import colors from '../styles/colors';
@@ -10,8 +11,8 @@ import styles from '../styles/login';
 
 const Login = ({ onLogin, setLogin }) => {
     const [users, setUsers] = useState([]);
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [email, setEmail] = useState("neurotrix@fiap.com");
+    const [password, setPassword] = useState("teste123");
 
     useEffect(() => {
         const getUsers = async () => {
@@ -28,27 +29,16 @@ const Login = ({ onLogin, setLogin }) => {
     }, []);
     
     const handleLogin = async () => {
-        AsyncStorage.getItem("users")
-        .then((info) => {
-        let lista = [];
-        let achou = false;
-        if(info) {
-            lista = JSON.parse(info)
-        }
-        for (let i=0; i<lista.length; i++) {
-            const obj = lista[i];
-            if(obj.email === email && obj.password === password) {
-                achou = true;
-                onLogin();
-                break;
-            }
-        }
-        if (!achou) {
-            alert(`Login invalido, tente novamente.`);
-        }
+        api.post('/login', {
+            "login": email,
+            "password": password
+        }).then((resp) => {
+            AsyncStorage.setItem('userToken', resp.data);
+            onLogin();
         }).catch((err) => {
-            alert("Erro ao ler lista de usuarios. " + err)
-        })
+            console.log(`Erro: ${err}`);
+            alert(`Usuario ou senha invalido.`);
+        });
     }
 
     return (

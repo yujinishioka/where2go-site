@@ -18,17 +18,16 @@ const Register = ({ setLogin }) => {
     const [password, setPassword] = useState();
 
     const handleRegister = async () => {
-        AsyncStorage.getItem("users")
-        .then((info) => {
-          let lista = [];
-          const obj = { username, name, email, cpf, cellphone, password };
-          if(info) {
-            lista = JSON.parse(info);
-          };
-          lista.push(obj);
-          AsyncStorage.setItem("users", JSON.stringify(lista));
+        api.post('/user/register', {
+            "name": name,
+            "email": email,
+            "password": password,
+            "role": "USER"
+        }).then(() => {
+            alert("Usuário cadastrado com sucesso.");
         }).catch((err) => {
-          alert("Erro: " + err)
+            console.log(`Erro: ${err}`);
+            alert(`Erro ao cadastrar usuário.`);
         })
     }
 

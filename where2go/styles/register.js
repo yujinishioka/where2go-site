@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
+import colors from './colors';
 
 const styles = StyleSheet.create({
     title: {
-        color: 'gray',
+        color: colors.lightGray,
         fontWeight: '700',
         fontSize: 24,
         marginBottom: 4,
