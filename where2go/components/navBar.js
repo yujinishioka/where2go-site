@@ -3,7 +3,7 @@ import styles from "../styles/navBar";
 
 const NavBar = (props) => {
     const items = props.items;
-    console.log('items', items)
+    console.log('items', items);
 
     return(
         <View style={styles.navBar}>

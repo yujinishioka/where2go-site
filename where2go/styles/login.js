@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
         color: colors.lightGray,
         fontWeight: '700',
         fontSize: 24,
-        marginBottom: 4,
+        marginBottom: -26,
         marginLeft: 24
     },
     box: {

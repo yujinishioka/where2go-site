@@ -4,16 +4,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
 
-import Login from './pages/login'
-import Register from './pages/register'
-import Home from './pages/home'
-import Menu from './pages/menu'
-import stylesGlobal from './styles/global'
+import Login from './pages/login';
+import Register from './pages/register';
+import Home from './pages/home';
+import Menu from './pages/menu';
+import Planejar from './pages/planejar';
+import stylesGlobal from './styles/global';
 
 const { Navigator, Screen } = createStackNavigator();
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [login, setLogin] = useState(true);
   console.log(`isLoggedIn: ${isLoggedIn} | login: ${login}`);
 
@@ -29,11 +30,18 @@ const App = () => {
     return (
       // <NavigationContainer>
       //   <Navigator initialRouteName="Home">
-      //     <Screen name="Home" component={ Home } onLogout={ handleLogout }/>
-      //     <Screen name="Menu" component={ Menu } onLogout={ handleLogout }/>
+      //     <Screen name="Home">
+      //       {(props) => <Home {...props} onLogout={ handleLogout }/>}
+      //     </Screen>
+      //     <Screen name="Menu">
+      //       {(props) => <Menu {...props} onLogout={ handleLogout }/>}
+      //     </Screen>
+      //     <Screen name="Planejar">
+      //       {(props) => <Planejar {...props}/>}
+      //     </Screen>
       //   </Navigator>
       // </NavigationContainer>
-      <Home onLogout={ handleLogout }/>
+      <Home />
     )
   }
 

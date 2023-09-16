@@ -6,12 +6,14 @@ const styles = StyleSheet.create({
     btnPrimary: {
         backgroundColor: colors.primary,
         padding: 8,
+        marginVertical: 10,
         borderRadius: 10,
         alignItems: 'center',
     },
     btnText: {
         color: 'white',
         fontWeight: '700',
+        fontSize: 18,
     },
     btnMenu: {
         backgroundColor: colors.darkGray,
