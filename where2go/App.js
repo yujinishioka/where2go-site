@@ -10,13 +10,13 @@ import Home from './pages/home';
 import Menu from './pages/menu';
 import Planejar from './pages/planejar';
 import stylesGlobal from './styles/global';
+import Viagens from './pages/viagens';
 
-const { Navigator, Screen } = createStackNavigator();
+const { Navigator, Group, Screen } = createStackNavigator();
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [login, setLogin] = useState(true);
-  console.log(`isLoggedIn: ${isLoggedIn} | login: ${login}`);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  console.log(`isLoggedIn: ${isLoggedIn}`);
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -26,46 +26,26 @@ const App = () => {
     setIsLoggedIn(false);
   };
 
-  const IsLogged = () => {
-    return (
-      // <NavigationContainer>
-      //   <Navigator initialRouteName="Home">
-      //     <Screen name="Home">
-      //       {(props) => <Home {...props} onLogout={ handleLogout }/>}
-      //     </Screen>
-      //     <Screen name="Menu">
-      //       {(props) => <Menu {...props} onLogout={ handleLogout }/>}
-      //     </Screen>
-      //     <Screen name="Planejar">
-      //       {(props) => <Planejar {...props}/>}
-      //     </Screen>
-      //   </Navigator>
-      // </NavigationContainer>
-      <Home />
-    )
-  }
-
-  const NotLogged = (props) => {
-    return (
-      <View>
-        { props.loginPage ?
-          <Login onLogin={ handleLogin } setLogin={ setLogin }/>
-          :
-          <Register setLogin={ setLogin }/>
-        }
-      </View>
-    )
-  }
-
   return (
-    <View style={stylesGlobal.container}>
-      { isLoggedIn ? 
-        <IsLogged/>
-        :
-        <NotLogged loginPage={ login }/>
-      }
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <View style={stylesGlobal.container}>
+        <Navigator initialRouteName={ isLoggedIn ? "Home" : "Login" } screenOptions={{ headerShown: false }}>
+          <Group>
+            <Screen name="Login">
+              {(props) => <Login {...props} onLogin={ handleLogin }/>}
+            </Screen>
+            <Screen name="Register" component={ Register }/>
+            <Screen name="Home" component={ Home }/>
+            <Screen name="Menu">
+              {(props) => <Menu {...props} onLogout={ handleLogout }/>}
+            </Screen>
+            <Screen name="Planejar" component={ Planejar }/>
+            <Screen name="Viagens" component={ Viagens }/>
+          </Group>
+        </Navigator>
+        {/* <StatusBar style="auto" /> */}
+      </View>
+    </NavigationContainer>
   );
 }
 

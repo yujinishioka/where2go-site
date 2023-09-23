@@ -9,6 +9,11 @@ const styles = StyleSheet.create({
         marginBottom: -26,
         marginLeft: 24
     },
+    center: {
+        flex: 1,
+        justifyContent: 'center',
+        marginHorizontal: 20,
+    },
     box: {
         marginTop: 10,
         alignItems: 'center'

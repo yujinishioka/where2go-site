@@ -7,7 +7,7 @@ import styles from '../styles/buttons';
 const ButtonMenu = (props) => {
   return(
     <View style={styles.menuBox}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={ props.action }>
         <View style={styles.btnMenu}>
             <Entypo name="menu" size={40} color={colors.background} />
         </View>

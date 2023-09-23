@@ -1,41 +1,96 @@
-import { useState } from 'react';
-import { ScrollView, Text, TextInput, View } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, FlatList } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
+import { useNavigation } from '@react-navigation/native';
 
 import ButtonMenu from '../components/buttonMenu';
-
 import colors from '../styles/colors';
 import stylesGlobal from '../styles/global';
 import styles from '../styles/planejar';
 import ButtonPrimary from '../components/buttonPrimary';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Planejar = () => {
-    const [partida, setPartida] = useState();
-    const [destino, setDestino] = useState();
-    const [precoMin, setPrecoMin] = useState();
-    const [precoMax, setPrecoMax] = useState();
-    const [dataInicio, setDataInicio] = useState();
-    const [dataFim, setDataFim] = useState();
+    const [viagem, setViagem] = useState({});
+    const [partida, setPartida] = useState('');
+    const [destino, setDestino] = useState('');
+    const [precoMin, setPrecoMin] = useState('');
+    const [precoMax, setPrecoMax] = useState('');
+    const [dataInicio, setDataInicio] = useState('');
+    const [dataFim, setDataFim] = useState('');
     const [crianca, setCrianca] = useState(false);
-    console.log('Planejar');
+    const [open, setOpen] = useState(false);
+    const [clima, setClima] = useState('quente');
+    const [climas, setClimas] = useState([
+        { label: 'Quente', value: 'quente' },
+        { label: 'Frio', value: 'frio' },
+    ]);
+
+    const navigation = useNavigation();
+
+    const navigateMenu = () => {
+        navigation.navigate("Menu");
+    };
 
     const preencherFormulario = () => {
-        console.log(`Formulario preenchido`);
-    }
+        console.log(`Formulário preenchido`);
+    };
 
     const resetarFormulario = () => {
-        console.log(`Formulario resetado`);
+        console.log(`Formulário resetado`);
     };
 
     const handlePlanejamento = () => {
+        // AsyncStorage.getItem("userToken").then((token) => {
+        //     api.post('/trip', {
+        //         "clima": clima,
+        //         "transporte": "avião",
+        //         "tempoMaximo": 7,
+        //         "custoMaximo" : precoMax
+        //     }, {
+        //         headers: {
+        //             'Authorization': `Bearer ${token}`
+        //         }
+        //     }).then((resp) => {
+        //         setViagem({
+        //             destino: resp.data.destino,
+        //             pais: resp.data.pais,
+        //             atividadesPorDia: resp.data.atividadesPorDia,
+        //             hospedagem: resp.data.hospedagem,
+        //             duracaoViagem: resp.data.duracaoViagem,
+        //             custo: resp.data.custo
+        //         });
+        //         alert('Viagem criada com sucesso.');
+        //     }).catch((err) => {
+        //         console.log(`Erro no Post: ${err}`);
+        //         alert('Falha ao planejar viagem.');
+        //     })
+        // })
         console.log(`Planejamento Efetuado.`);
-    }
+    };
 
-    return (
-        <View style={styles.container}>
-            <ButtonMenu text="Planejar"/>
-            <ScrollView style={stylesGlobal.form}>
+    const DropDownClima = () => {
+        return (
+            <View style={{ width: '100%' }}>
+                <DropDownPicker
+                    open={open}
+                    value={clima}
+                    items={climas}
+                    setOpen={setOpen}
+                    setValue={setClima}
+                    setItems={setClimas}
+                    theme="DARK"
+                    multiple={false}
+                />
+            </View>
+        );
+    };
+
+    const renderForms = ({ item }) => {
+        return (
+            <View style={stylesGlobal.form}>
                 <View style={{ marginBottom: 10 }}>
-                    <ButtonPrimary text="Preencher Automaticamente" onPress={ preencherFormulario }/>
+                    <ButtonPrimary text="Preencher Automaticamente" onPress={preencherFormulario} />
                     <View style={{ marginBottom: 6 }}>
                         <Text style={stylesGlobal.textExplain}>Preenche o formulário com base em IA.</Text>
                     </View>
@@ -46,21 +101,21 @@ const Planejar = () => {
                     </View>
                     <View style={stylesGlobal.formFull}>
                         <Text style={stylesGlobal.text}>Partida</Text>
-                        <TextInput 
+                        <TextInput
                             placeholder={"Meu Local"}
                             value={partida}
-                            onChangeText={setPartida} 
+                            onChangeText={setPartida}
                             placeholderTextColor={colors.lightGray}
                             style={stylesGlobal.textInput}
                         />
                     </View>
                     <View style={stylesGlobal.formFull}>
                         <Text style={stylesGlobal.text}>Destino</Text>
-                        <TextInput 
-                            placeholder={"Destino"} 
-                            value={destino} 
-                            onChangeText={setDestino} 
-                            placeholderTextColor={colors.lightGray} 
+                        <TextInput
+                            placeholder={"Destino"}
+                            value={destino}
+                            onChangeText={setDestino}
+                            placeholderTextColor={colors.lightGray}
                             style={stylesGlobal.textInput}
                         />
                     </View>
@@ -69,21 +124,21 @@ const Planejar = () => {
                     </View>
                     <View style={stylesGlobal.formHalfLeft}>
                         <Text style={stylesGlobal.text}>Mínimo</Text>
-                        <TextInput 
+                        <TextInput
                             placeholder={"R$"}
                             value={precoMin}
-                            onChangeText={setPrecoMin} 
+                            onChangeText={setPrecoMin}
                             placeholderTextColor={colors.lightGray}
                             style={stylesGlobal.textInput}
                         />
                     </View>
                     <View style={stylesGlobal.formHalfRight}>
                         <Text style={stylesGlobal.text}>Máximo</Text>
-                        <TextInput 
-                            placeholder={"R$"} 
-                            value={precoMax} 
-                            onChangeText={setPrecoMax} 
-                            placeholderTextColor={colors.lightGray} 
+                        <TextInput
+                            placeholder={"R$"}
+                            value={precoMax}
+                            onChangeText={setPrecoMax}
+                            placeholderTextColor={colors.lightGray}
                             style={stylesGlobal.textInput}
                         />
                     </View>
@@ -92,32 +147,49 @@ const Planejar = () => {
                     </View>
                     <View style={stylesGlobal.formHalfLeft}>
                         <Text style={stylesGlobal.text}>Início</Text>
-                        <TextInput 
+                        <TextInput
                             placeholder={"DD/MM/YYYY"}
                             value={dataInicio}
-                            onChangeText={setDataInicio} 
+                            onChangeText={setDataInicio}
                             placeholderTextColor={colors.lightGray}
                             style={stylesGlobal.textInput}
                         />
                     </View>
                     <View style={stylesGlobal.formHalfRight}>
                         <Text style={stylesGlobal.text}>Fim</Text>
-                        <TextInput 
-                            placeholder={"DD/MM/YYYY"} 
-                            value={dataFim} 
-                            onChangeText={setDataFim} 
-                            placeholderTextColor={colors.lightGray} 
+                        <TextInput
+                            placeholder={"DD/MM/YYYY"}
+                            value={dataFim}
+                            onChangeText={setDataFim}
+                            placeholderTextColor={colors.lightGray}
                             style={stylesGlobal.textInput}
                         />
                     </View>
+                    <View style={stylesGlobal.formFull}>
+                        <Text style={stylesGlobal.textBold}>Clima</Text>
+                    </View>
+                    <DropDownClima />
                 </View>
-                <View style={{ marginTop: 20, marginBottom: 60 }}>
-                    <ButtonPrimary text="Planejar" onPress={ handlePlanejamento }/>
-                    <ButtonPrimary text="Apagar Formulario" onPress={ resetarFormulario }/>
+                <View style={{ marginTop: 20, marginBottom: 16 }}>
+                    <ButtonPrimary text="Planejar" onPress={handlePlanejamento} />
+                    <ButtonPrimary text="Apagar Formulário" onPress={resetarFormulario} />
                 </View>
-            </ScrollView>
+            </View>
+        );
+    };
+
+    return (
+        <View style={stylesGlobal.containerPage}>
+            <View style={styles.container}>
+                <ButtonMenu text="Planejar" action={navigateMenu} />
+                <FlatList
+                    data={[{ key: '1' }]}
+                    renderItem={renderForms}
+                    style={styles.flatList}
+                />
+            </View>
         </View>
-    )
-}
+    );
+};
 
 export default Planejar;

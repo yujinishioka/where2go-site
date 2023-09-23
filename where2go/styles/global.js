@@ -4,9 +4,11 @@ import colors from './colors';
 const stylesGlobal = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    containerPage: {
         backgroundColor: colors.background,
-        alignItems: 'center',
-        justifyContent: 'center',
+        padding: 16,
+        minHeight: '100%',
     },
     text: {
         color: colors.lightGray,
@@ -35,7 +37,9 @@ const stylesGlobal = StyleSheet.create({
         display: 'flex',
         marginVertical: 30,
         padding: 30,
-        borderRadius: 30
+        borderColor: colors.lightGray,
+        borderWidth: 2,
+        borderRadius: 30,
     },
     formHalfLeft: {
         width: '48%',

@@ -3,13 +3,11 @@ import colors from './colors';
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%',
-        height: '100%',
-        paddingHorizontal: 10,
-        paddingTop: 20,
+        marginTop: 16
     },
-    flatList: {
-        marginTop: 16,
+    textMenu: {
+        color: colors.lightGray,
+        fontSize: 28,
     }
 });
 

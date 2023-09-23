@@ -1,15 +1,41 @@
+import { useNavigation } from '@react-navigation/native';
 import { Text, TouchableOpacity, View } from 'react-native';
 
+import stylesGlobal from '../styles/global';
+import styles from '../styles/menu';
+
 const Menu = ({ onLogout }) => {
-    console.log('MENU')
+    const navigation = useNavigation();
+
     return (
-        <View>
-            <Text>MENU</Text>
-            <TouchableOpacity onPress={()=> onLogout()}>
-                <Text>
-                    Perfil
-                </Text>
-            </TouchableOpacity>
+        <View style={stylesGlobal.containerPage}>
+            <View style={styles.container}>
+                <TouchableOpacity onPress={()=> alert('Precisa implementar')}>
+                    <Text style={styles.textMenu}>
+                        Perfil
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=> navigation.navigate("Home")}>
+                    <Text style={styles.textMenu}>
+                        Home
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=> navigation.navigate("Planejar")}>
+                    <Text style={styles.textMenu}>
+                        Planejar
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=> navigation.navigate("Viagens")}>
+                    <Text style={styles.textMenu}>
+                        Viagens
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=> navigation.navigate("Login")}>
+                    <Text style={styles.textMenu}>
+                        Sair
+                    </Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }
