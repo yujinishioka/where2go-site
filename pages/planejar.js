@@ -3,6 +3,7 @@ import { View, Text, TextInput, FlatList } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useNavigation } from '@react-navigation/native';
 
+import api from '../api';
 import ButtonMenu from '../components/buttonMenu';
 import colors from '../styles/colors';
 import stylesGlobal from '../styles/global';
@@ -11,7 +12,7 @@ import ButtonPrimary from '../components/buttonPrimary';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Planejar = () => {
-    const [viagem, setViagem] = useState({});
+    const [id, setId] = useState({});
     const [partida, setPartida] = useState('');
     const [destino, setDestino] = useState('');
     const [precoMin, setPrecoMin] = useState('');
@@ -41,31 +42,26 @@ const Planejar = () => {
     };
 
     const handlePlanejamento = () => {
-        // AsyncStorage.getItem("userToken").then((token) => {
-        //     api.post('/trip', {
-        //         "clima": clima,
-        //         "transporte": "avião",
-        //         "tempoMaximo": 7,
-        //         "custoMaximo" : precoMax
-        //     }, {
-        //         headers: {
-        //             'Authorization': `Bearer ${token}`
-        //         }
-        //     }).then((resp) => {
-        //         setViagem({
-        //             destino: resp.data.destino,
-        //             pais: resp.data.pais,
-        //             atividadesPorDia: resp.data.atividadesPorDia,
-        //             hospedagem: resp.data.hospedagem,
-        //             duracaoViagem: resp.data.duracaoViagem,
-        //             custo: resp.data.custo
-        //         });
-        //         alert('Viagem criada com sucesso.');
-        //     }).catch((err) => {
-        //         console.log(`Erro no Post: ${err}`);
-        //         alert('Falha ao planejar viagem.');
-        //     })
-        // })
+        console.log('Planejamento')
+        AsyncStorage.getItem("userToken").then((token) => {
+            api.post('/trip', {
+                "clima": clima,
+                "transporte": "avião",
+                "tempoMaximo": 7,
+                "custoMaximo" : precoMax
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }).then((resp) => {
+                setId(resp.data.id);
+                alert('Viagem criada com sucesso!');
+                // navigation.navigate("Viagem", {id: id} );
+            }).catch((err) => {
+                console.log(`Erro no Post: ${err}`);
+                alert('Falha ao planejar viagem.');
+            })
+        })
         console.log(`Planejamento Efetuado.`);
     };
 

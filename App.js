@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import * as Font from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 
 import Login from './pages/login';
@@ -11,6 +12,7 @@ import Menu from './pages/menu';
 import Planejar from './pages/planejar';
 import stylesGlobal from './styles/global';
 import Viagens from './pages/viagens';
+import Viagem from './pages/viagem';
 
 const { Navigator, Group, Screen } = createStackNavigator();
 
@@ -25,6 +27,12 @@ const App = () => {
   const handleLogout = () => {
     setIsLoggedIn(false);
   };
+
+  useEffect(() => {
+    Font.loadAsync({
+      Montserrat: require('./styles/fonts/Montserrat/static/Montserrat-Regular.ttf'),
+    });
+  }, [])
 
   return (
     <NavigationContainer>
@@ -41,6 +49,7 @@ const App = () => {
             </Screen>
             <Screen name="Planejar" component={ Planejar }/>
             <Screen name="Viagens" component={ Viagens }/>
+            <Screen name="Viagem" component={ Viagem }/>
           </Group>
         </Navigator>
         {/* <StatusBar style="auto" /> */}

@@ -3,6 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 
 import stylesGlobal from '../styles/global';
 import styles from '../styles/menu';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Menu = ({ onLogout }) => {
     const navigation = useNavigation();
@@ -30,7 +31,10 @@ const Menu = ({ onLogout }) => {
                         Viagens
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=> navigation.navigate("Login")}>
+                <TouchableOpacity onPress={()=> {
+                    AsyncStorage.removeItem('userToken');
+                    navigation.navigate("Login");
+                }}>
                     <Text style={styles.textMenu}>
                         Sair
                     </Text>
