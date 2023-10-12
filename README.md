@@ -12,7 +12,7 @@ RM | Nome | Links
 **93187** | Gabriel João da Silva | [![Github](https://img.shields.io/badge/Github-gray)](https://github.com/gjoao98) [![Linkedin](https://img.shields.io/badge/Linkedin-blue)](https://www.linkedin.com/in/gabriel-joao)
 **94513** | Leandro Alves de Souza Braga | [![Github](https://img.shields.io/badge/Github-gray)](https://github.com/bragaLeandro) [![Linkedin](https://img.shields.io/badge/Linkedin-blue)](https://www.linkedin.com/in/leandrobraga1)
 **94266** | Vinicius Alves Torres | [![Github](https://img.shields.io/badge/Github-gray)](https://github.com/ViniciusAlvesTorres) [![Linkedin](https://img.shields.io/badge/Linkedin-blue)](https://www.linkedin.com/in/vinicius-alves-torres-702973203)
-**92895** | Vinicius Yuji Nishioka | [![Github](https://img.shields.io/badge/Github-gray)](https://github.com/yujinishioka) [![Linkedin](https://img.shields.io/badge/Linkedin-blue)](https://www.linkedin.com/in/yuji-nishioka-643b22218)
+**92895** | Vinicius Yuji Nishioka | [![Github](https://img.shields.io/badge/Github-gray)](https://github.com/yujinishioka) [![Linkedin](https://img.shields.io/badge/Linkedin-blue)](https://www.linkedin.com/in/yuji-nishioka)
 
 ---
 
