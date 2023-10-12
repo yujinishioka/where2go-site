@@ -17,9 +17,9 @@ RM | Nome | Links
 ---
 
 # Lista de Melhorias
-
-* Formulário com mais campos e acertivos
-* Home
+- [ ] Formulário com mais campos e acertivos
+- [ ] Home
+- [ ] Menu
 
 ---
 
