@@ -6,13 +6,20 @@ O app **Where 2 Go** procura entregar a melhor experiência de viagens que algu�
 
 ## Integrantes
 
-RM | Nome
---- | ---
-**94170** | Felipe Breno Sugisawa Altran
-**93187** | Gabriel João da Silva
-**94513** | Leandro Alves de Souza Braga
-**94266** | Vinicius Alves Torres
-**92895** | Vinicius Yuji Nishioka
+RM | Nome | Links
+--- | --- | ---
+**94170** | Felipe Breno Sugisawa Altran | [![Github](https://img.shields.io/badge/Github-gray)](https://github.com/febreno) [![Linkedin](https://img.shields.io/badge/Linkedin-blue)](https://www.linkedin.com/in/felipe-sugisawa)
+**93187** | Gabriel João da Silva | [![Github](https://img.shields.io/badge/Github-gray)](https://github.com/gjoao98) [![Linkedin](https://img.shields.io/badge/Linkedin-blue)](https://www.linkedin.com/in/gabriel-joao)
+**94513** | Leandro Alves de Souza Braga | [![Github](https://img.shields.io/badge/Github-gray)](https://github.com/bragaLeandro) [![Linkedin](https://img.shields.io/badge/Linkedin-blue)](https://www.linkedin.com/in/leandrobraga1)
+**94266** | Vinicius Alves Torres | [![Github](https://img.shields.io/badge/Github-gray)](https://github.com/ViniciusAlvesTorres) [![Linkedin](https://img.shields.io/badge/Linkedin-blue)](https://www.linkedin.com/in/vinicius-alves-torres-702973203)
+**92895** | Vinicius Yuji Nishioka | [![Github](https://img.shields.io/badge/Github-gray)](https://github.com/yujinishioka) [![Linkedin](https://img.shields.io/badge/Linkedin-blue)](https://www.linkedin.com/in/yuji-nishioka-643b22218)
+
+---
+
+# Lista de Melhorias
+
+* Formulário com mais campos e acertivos
+* Home
 
 ---
 
