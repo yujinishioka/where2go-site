@@ -8,7 +8,7 @@ O app **Where 2 Go** procura entregar a melhor experiência de viagens que algu�
 
 RM | Nome | Links
 --- | --- | ---
-**94170** | Felipe Breno Sugisawa Altran | [![Github](https://img.shields.io/badge/Github-gray)](https://github.com/febreno) [![Linkedin](https://img.shields.io/badge/Linkedin-blue)](https://www.linkedin.com/in/felipe-sugisawa)
+**94170** | Felipe Breno Sugisawa Altran | [![Github](https://img.shields.io/badge/Github-gray)](https://github.com/febrenos) [![Linkedin](https://img.shields.io/badge/Linkedin-blue)](https://www.linkedin.com/in/felipe-sugisawa)
 **93187** | Gabriel João da Silva | [![Github](https://img.shields.io/badge/Github-gray)](https://github.com/gjoao98) [![Linkedin](https://img.shields.io/badge/Linkedin-blue)](https://www.linkedin.com/in/gabriel-joao)
 **94513** | Leandro Alves de Souza Braga | [![Github](https://img.shields.io/badge/Github-gray)](https://github.com/bragaLeandro) [![Linkedin](https://img.shields.io/badge/Linkedin-blue)](https://www.linkedin.com/in/leandrobraga1)
 **94266** | Vinicius Alves Torres | [![Github](https://img.shields.io/badge/Github-gray)](https://github.com/ViniciusAlvesTorres) [![Linkedin](https://img.shields.io/badge/Linkedin-blue)](https://www.linkedin.com/in/vinicius-alves-torres-702973203)
