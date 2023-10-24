@@ -50,6 +50,12 @@ const stylesGlobal = StyleSheet.create({
         width: '48%',
         marginVertical: 4,
     },
+    formHalfLeftSwitch: {
+        width: '48%',
+        marginRight: '4%',
+        marginVertical: 4,
+        justifyContent: 'flex-start',
+    },
     formFull: {
         width: '100%',
         marginVertical: 4,
@@ -58,6 +64,9 @@ const stylesGlobal = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
+    },
+    hidden: {
+        display: 'none',
     },
 });
 

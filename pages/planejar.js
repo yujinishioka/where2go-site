@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, FlatList } from 'react-native';
+import { FlatList, Switch, Text, TextInput, View } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useNavigation } from '@react-navigation/native';
 
 import api from '../api';
 import ButtonMenu from '../components/buttonMenu';
+import ButtonPrimary from '../components/buttonPrimary';
+import Calendario from '../components/calendario';
 import colors from '../styles/colors';
 import stylesGlobal from '../styles/global';
 import styles from '../styles/planejar';
-import ButtonPrimary from '../components/buttonPrimary';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Planejar = () => {
     const [id, setId] = useState({});
@@ -17,7 +18,9 @@ const Planejar = () => {
     const [destino, setDestino] = useState('');
     const [precoMin, setPrecoMin] = useState('');
     const [precoMax, setPrecoMax] = useState('');
+    const [dataInicioOn, setDataInicioOn] = useState(false);
     const [dataInicio, setDataInicio] = useState('');
+    const [dataFimOn, setDataFimOn] = useState(false);
     const [dataFim, setDataFim] = useState('');
     const [crianca, setCrianca] = useState(false);
     const [open, setOpen] = useState(false);
@@ -32,6 +35,14 @@ const Planejar = () => {
     const navigateMenu = () => {
         navigation.navigate("Menu");
     };
+
+    const handleDataInicioOn = () => {
+        setDataInicioOn(true);
+    }
+
+    const handleDataInicioOff = () => {
+        setDataInicioOn(false);
+    }
 
     const preencherFormulario = () => {
         console.log(`Formulário preenchido`);
@@ -142,6 +153,12 @@ const Planejar = () => {
                         <Text style={stylesGlobal.textBold}>Data</Text>
                     </View>
                     <View style={stylesGlobal.formHalfLeft}>
+                        <ButtonPrimary text="Inicio" onPress={handleDataInicioOn} />
+                    </View>
+                    <View style={ dataInicioOn ? "" : stylesGlobal.hidden}>
+                        <Calendario/>
+                    </View>
+                    {/* <View style={stylesGlobal.formHalfLeft}>
                         <Text style={stylesGlobal.text}>Início</Text>
                         <TextInput
                             placeholder={"DD/MM/YYYY"}
@@ -159,6 +176,15 @@ const Planejar = () => {
                             onChangeText={setDataFim}
                             placeholderTextColor={colors.lightGray}
                             style={stylesGlobal.textInput}
+                        />
+                    </View> */}
+                    <View style={stylesGlobal.formHalfLeftSwitch}>
+                        <Text style={stylesGlobal.text}>Criança</Text>
+                        <Switch
+                            value={crianca}
+                            onValueChange={setCrianca}
+                            trackColor={{false: colors.lightGray, true: colors.primary}}
+                            ios_backgroundColor={colors.primary}
                         />
                     </View>
                     <View style={stylesGlobal.formFull}>
@@ -179,7 +205,7 @@ const Planejar = () => {
             <View style={styles.container}>
                 <ButtonMenu text="Planejar" action={navigateMenu} />
                 <FlatList
-                    data={[{ key: '1' }]}
+                    data={[{key: '1'}]}
                     renderItem={renderForms}
                     style={styles.flatList}
                 />
