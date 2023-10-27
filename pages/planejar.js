@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FlatList, Switch, Text, TextInput, View } from 'react-native';
+import { FlatList, Modal, Switch, Text, TextInput, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useNavigation } from '@react-navigation/native';
@@ -18,13 +18,14 @@ const Planejar = () => {
     const [destino, setDestino] = useState('');
     const [precoMin, setPrecoMin] = useState('');
     const [precoMax, setPrecoMax] = useState('');
-    const [dataInicioOn, setDataInicioOn] = useState(false);
-    const [dataInicio, setDataInicio] = useState('');
-    const [dataFimOn, setDataFimOn] = useState(false);
-    const [dataFim, setDataFim] = useState('');
+    const [showCalendarStart, setShowCalendarStart] = useState(false);
+    const [dateStart, setDateStart] = useState(new Date());
+    const [showCalendarEnd, setShowCalendarEnd] = useState(false);
+    const [dateEnd, setDateEnd] = useState(new Date());
     const [crianca, setCrianca] = useState(false);
     const [open, setOpen] = useState(false);
     const [clima, setClima] = useState('quente');
+
     const [climas, setClimas] = useState([
         { label: 'Quente', value: 'quente' },
         { label: 'Frio', value: 'frio' },
@@ -36,12 +37,22 @@ const Planejar = () => {
         navigation.navigate("Menu");
     };
 
-    const handleDataInicioOn = () => {
-        setDataInicioOn(true);
+    const handleShowCalendarStart = () => {
+        setShowCalendarStart(!showCalendarStart);
     }
 
-    const handleDataInicioOff = () => {
-        setDataInicioOn(false);
+    const handleShowCalendarEnd = () => {
+        setShowCalendarEnd(!showCalendarEnd);
+    }
+
+    const handleDateStartSelect = (date) => {
+        setDateStart(date);
+        setShowCalendarStart(false);
+    }
+
+    const handleDateEndSelect = (date) => {
+        setDateEnd(date);
+        setShowCalendarEnd(false);
     }
 
     const preencherFormulario = () => {
@@ -150,13 +161,26 @@ const Planejar = () => {
                         />
                     </View>
                     <View style={stylesGlobal.formFull}>
-                        <Text style={stylesGlobal.textBold}>Data</Text>
+                        <Text style={stylesGlobal.textBold}>Data da Viagem</Text>
                     </View>
                     <View style={stylesGlobal.formHalfLeft}>
-                        <ButtonPrimary text="Inicio" onPress={handleDataInicioOn} />
+                        <ButtonPrimary text="Partida" onPress={handleShowCalendarStart}  />
                     </View>
-                    <View style={ dataInicioOn ? "" : stylesGlobal.hidden}>
-                        <Calendario/>
+                    <View style={stylesGlobal.formHalfRight}>
+                        <ButtonPrimary text="Destino" onPress={handleShowCalendarEnd} />
+                    </View>
+                    <View style={stylesGlobal.formHalfLeft}>
+                        <Text style={stylesGlobal.text}>Partida:</Text>
+                        {showCalendarStart && <Calendario onDateSelected={handleDateStartSelect}/>}
+                        {dateStart && (
+                            <View>
+                                <Text>Partida:</Text>
+                            </View>
+                        )}
+                    </View>
+                    <View style={stylesGlobal.formHalfRight}>
+                        <Text style={stylesGlobal.text}>Destino:</Text>
+                        {showCalendarEnd && <Calendario/>}
                     </View>
                     {/* <View style={stylesGlobal.formHalfLeft}>
                         <Text style={stylesGlobal.text}>Início</Text>

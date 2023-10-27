@@ -1,36 +1,42 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
-import CalendarPicker from 'react-native-calendar-picker';
+import { Text, View, TouchableOpacity } from 'react-native';
+import DatePicker from '@react-native-community/datetimepicker';
 
 import styles from '../styles/calendario';
 
 export default class Calendario extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      selectedStartDate: null,
-    };
-    this.onDateChange = this.onDateChange.bind(this);
+    this.state = { date: new Date(), showDatePicker: false };
   }
 
-  onDateChange(date) {
-    this.setState({
-      selectedStartDate: date,
-    });
+  toggleDatePicker = () => {
+    this.setState({ showDatePicker: !this.state.showDatePicker });
+  }
+
+  setDate = (event, date) => {
+    if (date !== undefined) {
+      this.setState({ date: date, showDatePicker: false });
+    }
   }
 
   render() {
-    const { selectedStartDate } = this.state;
-    const startDate = selectedStartDate ? selectedStartDate.toString() : '';
     return (
       <View style={styles.container}>
-        <CalendarPicker
-          onDateChange={this.onDateChange}
-        />
-        <View>
-          <Text>SELECTED DATE:{ startDate }</Text>
-        </View>
+        <TouchableOpacity onPress={this.toggleDatePicker}>
+          <Text style={styles.text}>Data: {this.state.date.toLocaleDateString()}</Text>
+        </TouchableOpacity>
+        {this.state.showDatePicker && (
+          <DatePicker
+            style={{ width: 200 }}
+            value={this.state.date}
+            mode="date"
+            display="default"
+            minimumDate={new Date()}
+            onChange={this.setDate}
+          />
+        )}
       </View>
-    );
+    )
   }
 }
