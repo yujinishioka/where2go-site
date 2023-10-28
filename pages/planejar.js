@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
-import { FlatList, Switch, Text, TextInput, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Animated, Easing, FlatList, Switch, Text, TextInput, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useNavigation } from '@react-navigation/native';
 
-import api from '../api';
 import ButtonMenu from '../components/buttonMenu';
 import ButtonPrimary from '../components/buttonPrimary';
+
 import colors from '../styles/colors';
 import stylesGlobal from '../styles/global';
 import styles from '../styles/planejar';
+
+import api from '../api';
 
 const Planejar = () => {
     const [id, setId] = useState({});
@@ -23,6 +25,7 @@ const Planejar = () => {
     const [open, setOpen] = useState(false);
     const [clima, setClima] = useState('');
     const [loading, setLoading] = useState(false);
+    const fadeAnim = new Animated.Value(1);
 
     const [climas, setClimas] = useState([
         { label: 'Quente', value: 'quente' },
@@ -65,7 +68,7 @@ const Planejar = () => {
 
     const transformarData = (data) => {
         const partes = data.split('-');
-        if(partes.length === 3) {
+        if (partes.length === 3) {
             const dia = partes[0];
             const mes = partes[1];
             const ano = partes[2];
@@ -93,17 +96,31 @@ const Planejar = () => {
                 }
             }).then((resp) => {
                 setId(resp.data.id);
-                setLoading(false);
                 console.log('Viagem criada com sucesso!');
                 alert('Viagem criada com sucesso!');
-                // navigation.navigate("Viagem", {id: id} );
+                navigation.navigate("Viagens")
             }).catch((err) => {
-                setLoading(false);
                 console.log(`Erro no Post: ${err}`);
                 alert('Falha ao planejar viagem.');
-            })
+            }).finally(() => {
+                setLoading(false); // Certifique-se de definir o estado como falso, mesmo em caso de erro
+            });
         })
     };
+
+    useEffect(() => {
+        if (loading) {
+            // Simulando uma tarefa de carregamento demorada
+            const animation = Animated.timing(fadeAnim, {
+                toValue: 0,
+                duration: 300,
+                easing: Easing.inOut(Easing.ease),
+                useNativeDriver: true,
+            });
+
+            Animated.loop(animation).start();
+        }
+    }, [loading, fadeAnim]);
 
     const DropDownClima = () => {
         return (
@@ -206,7 +223,7 @@ const Planejar = () => {
                         <Switch
                             value={crianca}
                             onValueChange={setCrianca}
-                            trackColor={{false: colors.lightGray, true: colors.primary}}
+                            trackColor={{ false: colors.lightGray, true: colors.primary }}
                             ios_backgroundColor={colors.primary}
                         />
                     </View>
@@ -226,15 +243,16 @@ const Planejar = () => {
     return (
         <View style={stylesGlobal.containerPage}>
             <View style={styles.container}>
-                { loading ? 
-                    <View>
-                        <Text>Loading...</Text>
+                {loading ?
+                    <View style={styles.loadingContainer}>
+                        <ActivityIndicator size="large" />
+                        <Text style={styles.text}>Loading...</Text>
                     </View>
-                    : 
+                    :
                     <View>
                         <ButtonMenu text="Planejar" action={navigateMenu} />
                         <FlatList
-                            data={[{key: '1'}]}
+                            data={[{ key: '1' }]}
                             renderItem={renderForms}
                             style={styles.flatList}
                         />
