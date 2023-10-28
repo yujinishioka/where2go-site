@@ -30,14 +30,22 @@ const Viagens = () => {
 
     const navigateMenu = () => { navigation.navigate("Menu") };
 
-    const ViagensList = ({ id, destino, pais }) => {
+    const ViagensList = ({ id, destino, pais, dataInicio, dataFim }) => {
         const navigateViagem = () => { navigation.navigate("Viagem", {id: id} )}
 
         return(
             <TouchableOpacity onPress={navigateViagem}>
                 <View style={styles.box}>
                     <Text style={styles.title}>{destino} - {pais}</Text>
-                    <Text style={styles.date}>Data: 21/12/2023</Text>
+                    { dataInicio && dataFim ? 
+                        <View>
+                            <Text style={styles.date}>{dataInicio} à {dataFim}</Text>
+                        </View>
+                        :
+                        <View>
+                            <Text style={styles.date}>Data: provisório</Text>
+                        </View>
+                    }
                 </View>
             </TouchableOpacity>
         )

@@ -69,7 +69,9 @@ const Planejar = () => {
             setLoading(true);
             api.post('/trip', {
                 "clima": clima,
-                "custoMaximo" : precoMax,
+                "custoMaximo": precoMax,
+                "dataInicio": dateStart,
+                "dataFim": dateEnd,
                 "destino": destino,
                 "tempoMaximo": calcularDias(dateStart, dateEnd),
                 "transporte": "avião",

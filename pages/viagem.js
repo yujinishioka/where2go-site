@@ -24,6 +24,8 @@ const Viagem = () => {
         hospedagem: "",
         duracaoViagem: "",
         custo: "",
+        dataInicio: "",
+        dataFim: ""
     });
     const navigation = useNavigation();
     const route = useRoute();
