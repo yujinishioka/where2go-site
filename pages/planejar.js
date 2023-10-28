@@ -63,6 +63,18 @@ const Planejar = () => {
         return diferencaDias;
     }
 
+    const transformarData = (data) => {
+        const partes = data.split('-');
+        if(partes.length === 3) {
+            const dia = partes[0];
+            const mes = partes[1];
+            const ano = partes[2];
+            return `${ano}-${mes}-${dia}`
+        } else {
+            return data;
+        }
+    }
+
     const handlePlanejamento = () => {
         console.log('Planejamento');
         AsyncStorage.getItem("userToken").then((token) => {
@@ -70,8 +82,8 @@ const Planejar = () => {
             api.post('/trip', {
                 "clima": clima,
                 "custoMaximo": precoMax,
-                "dataInicio": dateStart,
-                "dataFim": dateEnd,
+                "dataInicio": transformarData(dateStart),
+                "dataFim": transformarData(dateEnd),
                 "destino": destino,
                 "tempoMaximo": calcularDias(dateStart, dateEnd),
                 "transporte": "avião",
@@ -82,7 +94,7 @@ const Planejar = () => {
             }).then((resp) => {
                 setId(resp.data.id);
                 setLoading(false);
-                console('Viagem criada com sucesso!');
+                console.log('Viagem criada com sucesso!');
                 alert('Viagem criada com sucesso!');
                 // navigation.navigate("Viagem", {id: id} );
             }).catch((err) => {
