@@ -24,7 +24,7 @@ export default class Calendario extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={this.toggleDatePicker}>
-          <Text style={styles.text}>Data: {this.state.date.toLocaleDateString()}</Text>
+          <Text style={styles.text}>{this.state.date.toLocaleDateString()}</Text>
         </TouchableOpacity>
         {this.state.showDatePicker && (
           <DatePicker

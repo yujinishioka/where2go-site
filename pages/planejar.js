@@ -25,6 +25,7 @@ const Planejar = () => {
     const [crianca, setCrianca] = useState(false);
     const [open, setOpen] = useState(false);
     const [clima, setClima] = useState('quente');
+    const [loading, setLoading] = useState(false);
 
     const [climas, setClimas] = useState([
         { label: 'Quente', value: 'quente' },
@@ -64,27 +65,31 @@ const Planejar = () => {
     };
 
     const handlePlanejamento = () => {
-        console.log('Planejamento')
+        console.log('Planejamento');
         AsyncStorage.getItem("userToken").then((token) => {
+            setLoading(true);
             api.post('/trip', {
                 "clima": clima,
-                "transporte": "avião",
+                "custoMaximo" : precoMax,
+                "destino": destino,
                 "tempoMaximo": 7,
-                "custoMaximo" : precoMax
+                "transporte": "avião",
             }, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             }).then((resp) => {
                 setId(resp.data.id);
+                setLoading(false);
+                console('Viagem criada com sucesso!');
                 alert('Viagem criada com sucesso!');
                 // navigation.navigate("Viagem", {id: id} );
             }).catch((err) => {
+                setLoading(false);
                 console.log(`Erro no Post: ${err}`);
                 alert('Falha ao planejar viagem.');
             })
         })
-        console.log(`Planejamento Efetuado.`);
     };
 
     const DropDownClima = () => {
@@ -171,12 +176,7 @@ const Planejar = () => {
                     </View>
                     <View style={stylesGlobal.formHalfLeft}>
                         <Text style={stylesGlobal.text}>Partida:</Text>
-                        {showCalendarStart && <Calendario onDateSelected={handleDateStartSelect}/>}
-                        {dateStart && (
-                            <View>
-                                <Text>Partida:</Text>
-                            </View>
-                        )}
+                        {showCalendarStart && <Calendario/>}
                     </View>
                     <View style={stylesGlobal.formHalfRight}>
                         <Text style={stylesGlobal.text}>Destino:</Text>
@@ -227,12 +227,20 @@ const Planejar = () => {
     return (
         <View style={stylesGlobal.containerPage}>
             <View style={styles.container}>
-                <ButtonMenu text="Planejar" action={navigateMenu} />
-                <FlatList
-                    data={[{key: '1'}]}
-                    renderItem={renderForms}
-                    style={styles.flatList}
-                />
+                { loading ? 
+                    <View>
+                        <Text>Loading...</Text>
+                    </View>
+                    : 
+                    <View>
+                        <ButtonMenu text="Planejar" action={navigateMenu} />
+                        <FlatList
+                            data={[{key: '1'}]}
+                            renderItem={renderForms}
+                            style={styles.flatList}
+                        />
+                    </View>
+                }
             </View>
         </View>
     );
