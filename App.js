@@ -13,6 +13,7 @@ import Planejar from './pages/planejar';
 import stylesGlobal from './styles/global';
 import Viagens from './pages/viagens';
 import Viagem from './pages/viagem';
+import Perfil from './pages/perfil';
 
 const { Navigator, Group, Screen } = createStackNavigator();
 
@@ -50,6 +51,7 @@ const App = () => {
             <Screen name="Planejar" component={ Planejar }/>
             <Screen name="Viagens" component={ Viagens }/>
             <Screen name="Viagem" component={ Viagem }/>
+            <Screen name="Perfil" component={ Perfil }/>
           </Group>
         </Navigator>
         {/* <StatusBar style="auto" /> */}

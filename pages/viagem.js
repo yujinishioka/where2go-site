@@ -10,6 +10,7 @@ import stylesGlobal from "../styles/global";
 import styles from "../styles/viagem";
 
 const Viagem = () => {
+    const [loading, setLoading] = useState(false);
     const [viagem, setViagem] = useState({
         destino: "",
         pais: "",
@@ -46,12 +47,16 @@ const Viagem = () => {
     const navigateMenu = () => { navigation.navigate("Menu") };
 
     const AtividadesList = ({ atividades }) => {
-        return(
-            <View style={styles.boxAtividade}>
-                <Text style={styles.text}><Text style={styles.textBold}>Atividade:</Text> {atividades[0].nome}</Text>
-                <Text style={styles.text}><Text style={styles.textBold}>Duração:</Text> {atividades[0].duracao}</Text>
+        return (
+            <View>
+                {atividades.map((atividade, index) => (
+                    <View key={index} style={styles.boxAtividade}>
+                        <Text style={styles.text}><Text style={styles.textBold}>Atividade:</Text> {atividade.nome}</Text>
+                        <Text style={styles.text}><Text style={styles.textBold}>Duração:</Text> {atividade.duracao}</Text>
+                    </View>
+                ))}
             </View>
-        )
+        );
     }
 
     return(

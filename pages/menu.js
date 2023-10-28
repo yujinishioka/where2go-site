@@ -11,7 +11,7 @@ const Menu = ({ onLogout }) => {
     return (
         <View style={stylesGlobal.containerPage}>
             <View style={styles.container}>
-                <TouchableOpacity onPress={()=> alert('Precisa implementar')}>
+                <TouchableOpacity onPress={()=> navigation.navigate("Perfil")}>
                     <Text style={styles.textMenu}>
                         Perfil
                     </Text>

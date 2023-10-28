@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FlatList, Modal, Switch, Text, TextInput, View } from 'react-native';
+import { FlatList, Switch, Text, TextInput, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useNavigation } from '@react-navigation/native';
@@ -7,7 +7,6 @@ import { useNavigation } from '@react-navigation/native';
 import api from '../api';
 import ButtonMenu from '../components/buttonMenu';
 import ButtonPrimary from '../components/buttonPrimary';
-import Calendario from '../components/calendario';
 import colors from '../styles/colors';
 import stylesGlobal from '../styles/global';
 import styles from '../styles/planejar';
@@ -18,13 +17,11 @@ const Planejar = () => {
     const [destino, setDestino] = useState('');
     const [precoMin, setPrecoMin] = useState('');
     const [precoMax, setPrecoMax] = useState('');
-    const [showCalendarStart, setShowCalendarStart] = useState(false);
-    const [dateStart, setDateStart] = useState(new Date());
-    const [showCalendarEnd, setShowCalendarEnd] = useState(false);
-    const [dateEnd, setDateEnd] = useState(new Date());
+    const [dateStart, setDateStart] = useState('');
+    const [dateEnd, setDateEnd] = useState('');
     const [crianca, setCrianca] = useState(false);
     const [open, setOpen] = useState(false);
-    const [clima, setClima] = useState('quente');
+    const [clima, setClima] = useState('');
     const [loading, setLoading] = useState(false);
 
     const [climas, setClimas] = useState([
@@ -38,31 +35,33 @@ const Planejar = () => {
         navigation.navigate("Menu");
     };
 
-    const handleShowCalendarStart = () => {
-        setShowCalendarStart(!showCalendarStart);
-    }
-
-    const handleShowCalendarEnd = () => {
-        setShowCalendarEnd(!showCalendarEnd);
-    }
-
-    const handleDateStartSelect = (date) => {
-        setDateStart(date);
-        setShowCalendarStart(false);
-    }
-
-    const handleDateEndSelect = (date) => {
-        setDateEnd(date);
-        setShowCalendarEnd(false);
-    }
-
     const preencherFormulario = () => {
         console.log(`Formulário preenchido`);
     };
 
     const resetarFormulario = () => {
-        console.log(`Formulário resetado`);
+        setPartida('');
+        setDestino('');
+        setPrecoMin('');
+        setPrecoMax('');
+        setDateStart('');
+        setDateEnd('');
+        setCrianca(false);
+        setClima('');
     };
+
+    const calcularDias = (inicio, fim) => {
+        const [dia1, mes1, ano1] = inicio.split('-').map(Number);
+        const [dia2, mes2, ano2] = fim.split('-').map(Number);
+
+        const data1 = new Date(ano1, mes1 - 1, dia1);
+        const data2 = new Date(ano2, mes2 - 1, dia2);
+
+        const diferencaMilissegundos = Math.abs(data2 - data1);
+        const diferencaDias = diferencaMilissegundos / (1000 * 60 * 60 * 24);
+
+        return diferencaDias;
+    }
 
     const handlePlanejamento = () => {
         console.log('Planejamento');
@@ -72,7 +71,7 @@ const Planejar = () => {
                 "clima": clima,
                 "custoMaximo" : precoMax,
                 "destino": destino,
-                "tempoMaximo": 7,
+                "tempoMaximo": calcularDias(dateStart, dateEnd),
                 "transporte": "avião",
             }, {
                 headers: {
@@ -169,25 +168,11 @@ const Planejar = () => {
                         <Text style={stylesGlobal.textBold}>Data da Viagem</Text>
                     </View>
                     <View style={stylesGlobal.formHalfLeft}>
-                        <ButtonPrimary text="Partida" onPress={handleShowCalendarStart}  />
-                    </View>
-                    <View style={stylesGlobal.formHalfRight}>
-                        <ButtonPrimary text="Destino" onPress={handleShowCalendarEnd} />
-                    </View>
-                    <View style={stylesGlobal.formHalfLeft}>
-                        <Text style={stylesGlobal.text}>Partida:</Text>
-                        {showCalendarStart && <Calendario/>}
-                    </View>
-                    <View style={stylesGlobal.formHalfRight}>
-                        <Text style={stylesGlobal.text}>Destino:</Text>
-                        {showCalendarEnd && <Calendario/>}
-                    </View>
-                    {/* <View style={stylesGlobal.formHalfLeft}>
                         <Text style={stylesGlobal.text}>Início</Text>
                         <TextInput
-                            placeholder={"DD/MM/YYYY"}
-                            value={dataInicio}
-                            onChangeText={setDataInicio}
+                            placeholder={"DD-MM-YYYY"}
+                            value={dateStart}
+                            onChangeText={setDateStart}
                             placeholderTextColor={colors.lightGray}
                             style={stylesGlobal.textInput}
                         />
@@ -195,13 +180,13 @@ const Planejar = () => {
                     <View style={stylesGlobal.formHalfRight}>
                         <Text style={stylesGlobal.text}>Fim</Text>
                         <TextInput
-                            placeholder={"DD/MM/YYYY"}
-                            value={dataFim}
-                            onChangeText={setDataFim}
+                            placeholder={"DD-MM-YYYY"}
+                            value={dateEnd}
+                            onChangeText={setDateEnd}
                             placeholderTextColor={colors.lightGray}
                             style={stylesGlobal.textInput}
                         />
-                    </View> */}
+                    </View>
                     <View style={stylesGlobal.formHalfLeftSwitch}>
                         <Text style={stylesGlobal.text}>Criança</Text>
                         <Switch
