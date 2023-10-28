@@ -20,18 +20,28 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 20,
     },
+    line: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 5
+    },
     title: {
         color: colors.lightGray,
         fontSize: 20,
+        fontWeight: '700',
+        marginBottom: 4,
     },
-    date: {
-        color: colors.lightGray,
-        fontSize: 16
-    },
-    textTitle: {
+    text: {
         color: "#FFF",
-        fontSize: 24,
-        textAlign: "center"
+        fontSize: 18,
+        marginVertical: 1,
+        fontFamily: 'Montserrat'
+    },
+    textBold: {
+        fontWeight: '700',
+        fontSize: 18,
+        color: "#FFF"
     }
 });
 

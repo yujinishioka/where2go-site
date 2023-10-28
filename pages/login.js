@@ -12,8 +12,8 @@ import styles from '../styles/login';
 
 const Login = ({ onLogin }) => {
     const [users, setUsers] = useState([]);
-    const [email, setEmail] = useState("neurotrix@fiap.com");
-    const [password, setPassword] = useState("teste123");
+    const [email, setEmail] = useState("gj98@gmail.com");
+    const [password, setPassword] = useState("123");
     const navigation = useNavigation();
 
     useEffect(() => {
@@ -66,6 +66,7 @@ const Login = ({ onLogin }) => {
                             />
                             <TextInput 
                                 placeholder={"Senha"} 
+                                secureTextEntry={true}
                                 value={password} 
                                 onChangeText={setPassword} 
                                 placeholderTextColor={colors.lightGray} 
