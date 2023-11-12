@@ -18,6 +18,10 @@ const styles = StyleSheet.create({
         borderRadius: 20,
     },
 
+    boxMenu: {
+        alignItems: 'flex-end',
+    },
+
     title: {
         color: colors.lightGray,
         fontSize: 20,
@@ -26,6 +30,12 @@ const styles = StyleSheet.create({
     date: {
         color: colors.lightGray,
         fontSize: 16
+    },
+
+    touchable: {
+        color: colors.lightGray,
+        fontSize: 18,
+        margin: 4
     },
 
     loadingContainer: {

@@ -12,7 +12,7 @@ import styles from '../styles/login';
 
 const Login = ({ onLogin }) => {
     const [users, setUsers] = useState([]);
-    const [email, setEmail] = useState("gj98@gmail.com");
+    const [email, setEmail] = useState("yuuni@gmail.com");
     const [password, setPassword] = useState("123");
     const navigation = useNavigation();
 

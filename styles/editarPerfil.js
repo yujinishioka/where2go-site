@@ -69,6 +69,10 @@ const styles = StyleSheet.create({
     textButton: {
         color: colors.lightGray,
         fontSize: 28,
+    },
+
+    center: {
+        alignItems: 'center',
     }
 });
 

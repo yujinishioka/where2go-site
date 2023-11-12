@@ -27,7 +27,7 @@ const Viagens = () => {
                 console.log(`Erro: ${err}`);
                 alert('Erro para encontrar viagens.');
             }).finally(() => {
-                setLoading(false); // Certifique-se de definir o estado como falso, mesmo em caso de erro
+                setLoading(false);
             });
         })
     }, [])
@@ -35,7 +35,6 @@ const Viagens = () => {
 
     useEffect(() => {
         if (loading) {
-            // Simulando uma tarefa de carregamento demorada
             const animation = Animated.timing(fadeAnim, {
                 toValue: 0,
                 duration: 300,
@@ -49,24 +48,62 @@ const Viagens = () => {
 
     const navigateMenu = () => { navigation.navigate("Menu") };
 
+    const atualizarViagens = async () => {
+        try {
+            const token = await AsyncStorage.getItem("userToken");
+            const response = await api.get('/trip', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            setViagens(response.data);
+        } catch (error) {
+            console.error(`Erro ao atualizar lista de viagens: ${error}`);
+            alert("Erro ao atualizar lista de viagens");
+        }
+    };
+
+    const deletarViagem = async (id) => {
+        try {
+            const token = await AsyncStorage.getItem("userToken");
+            await api.delete(`/trip/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            alert("Viagem deletada com sucesso");
+            atualizarViagens();
+        } catch (error) {
+            console.error(`Erro ao deletar viagem: ${error}`);
+            alert("Erro ao deletar viagem");
+        }
+    };
+
     const ViagensList = ({ id, destino, pais, dataInicio, dataFim }) => {
         const navigateViagem = () => { navigation.navigate("Viagem", { id: id }) }
 
         return (
-            <TouchableOpacity onPress={navigateViagem}>
-                <View style={styles.box}>
-                    <Text style={styles.title}>{destino} - {pais}</Text>
-                    {dataInicio && dataFim ?
-                        <View>
-                            <Text style={styles.date}>{dataInicio} à {dataFim}</Text>
-                        </View>
-                        :
-                        <View>
-                            <Text style={styles.date}>Data: provisório</Text>
-                        </View>
-                    }
+            <View>
+                <TouchableOpacity onPress={navigateViagem}>
+                    <View style={styles.box}>
+                        <Text style={styles.title}>{destino} - {pais}</Text>
+                        {dataInicio && dataFim ?
+                            <View>
+                                <Text style={styles.date}>{dataInicio} à {dataFim}</Text>
+                            </View>
+                            :
+                            <View>
+                                <Text style={styles.date}>Data: provisório</Text>
+                            </View>
+                        }
+                    </View>
+                </TouchableOpacity>
+                <View style={styles.boxMenu}>
+                    <TouchableOpacity onPress={deletarViagem(id)}>
+                        <Text style={styles.touchable}>Deletar</Text>
+                    </TouchableOpacity>
                 </View>
-            </TouchableOpacity>
+            </View>
         )
     }
 

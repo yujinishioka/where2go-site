@@ -1,16 +1,13 @@
-import { ActivityIndicator, Animated, Easing, Image, Text, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
+import { ActivityIndicator, Animated, Easing, Image, Text, TouchableOpacity, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import ButtonMenu from '../components/buttonMenu';
-
-import stylesGlobal from '../styles/global';
-import styles from '../styles/perfil';
-
-import img from '../assets/profile.png';
+import { useNavigation } from '@react-navigation/native';
 
 import api from "../api";
+import img from '../assets/profile.png';
+import ButtonMenu from '../components/buttonMenu';
+import styles from '../styles/perfil';
+import stylesGlobal from '../styles/global';
 
 const Perfil = () => {
     const [user, setUser] = useState({});
@@ -32,7 +29,7 @@ const Perfil = () => {
                 setUser(resp.data);
             }).catch((err) => {
                 console.log(`Erro: ${err}`);
-                alert('Erro para encontrar viagens.');
+                alert('Erro para encontrar usuario.');
             }).finally(() => {
                 setLoading(false); // Certifique-se de definir o estado como falso, mesmo em caso de erro
             });
@@ -77,13 +74,20 @@ const Perfil = () => {
                     <Text style={styles.textBoldKey}>Description:</Text>
                     <Text style={styles.textValue}>{user.description}</Text>
                 </View>
+                <View style={styles.line}>
+                    <TouchableOpacity onPress={()=> navigation.navigate("EditarPerfil")}>
+                        <Text style={styles.textButton}>
+                            Editar
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         )
     }
 
     const navigation = useNavigation();
 
-    const navigateMenu = () => { navigation.navigate("Menu") }
+    const navigateMenu = () => { navigation.navigate("Menu"), { id: user.id } }
 
     return (
         <View style={stylesGlobal.containerPage}>
